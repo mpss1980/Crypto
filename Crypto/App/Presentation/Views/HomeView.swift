@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct HomeView: View {
+    @EnvironmentObject private var viewModel: HomeViewModel
     @State private var showPortfolio = false
 
     var body: some View {
@@ -16,16 +17,29 @@ struct HomeView: View {
 
             VStack {
                 homeHeader
+                columnTitles
+
+                if !showPortfolio {
+                    allCoinsList
+                        .transition(.move(edge: .leading))
+                } else {
+                    portfolioList
+                        .transition(.move(edge: .trailing))
+                }
+
                 Spacer(minLength: 0)
             }
         }
     }
 }
 
-#Preview {
-    NavigationView {
-        HomeView()
-            .navigationBarHidden(true)
+struct HomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            HomeView()
+                .navigationBarHidden(true)
+        }
+        .environmentObject(dev.homeViewModel)
     }
 }
 
@@ -51,5 +65,43 @@ extension HomeView {
                 }
         }
         .padding(.horizontal)
+    }
+    
+    private var columnTitles: some View {
+        HStack {
+            Text("Coin")
+            Spacer()
+            if showPortfolio {
+                Text("Holdings")
+            }
+            Text("Price")
+                .frame(
+                    width: UIScreen.main.bounds.width / 3.5,
+                    alignment: .trailing)
+        }
+        .font(.caption)
+        .foregroundColor(Color.theme.secondaryText)
+        .padding(.horizontal)
+    }
+
+    private var allCoinsList: some View {
+        return buildList(coins: viewModel.coins, showHoldingColumn: false)
+    }
+
+    private var portfolioList: some View {
+        return buildList(
+            coins: viewModel.portfolioCoins, showHoldingColumn: true)
+    }
+
+    private func buildList(coins: [Coin], showHoldingColumn: Bool) -> some View
+    {
+        List {
+            ForEach(coins) { coin in
+                CoinRowView(coin: coin, showHoldingColumn: showHoldingColumn)
+                    .listRowInsets(
+                        .init(top: 10, leading: 0, bottom: 10, trailing: 10))
+            }
+        }
+        .listStyle(PlainListStyle())
     }
 }
