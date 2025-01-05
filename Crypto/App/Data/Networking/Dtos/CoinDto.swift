@@ -24,7 +24,7 @@ struct CoinDto: Identifiable, Codable {
     let lastUpdated: String?
     let priceChangePercentage24HInCurrency: Double?
     let sparklineIn7D: SparklineIn7D?
-    
+
     enum CodingKeys: String, CodingKey {
         case id, symbol, name, image
         case currentPrice = "current_price"
@@ -48,8 +48,17 @@ struct CoinDto: Identifiable, Codable {
         case atlChangePercentage = "atl_change_percentage"
         case atlDate = "atl_date"
         case lastUpdated = "last_updated"
-        case priceChangePercentage24HInCurrency = "price_change_percentage_24h_in_currency"
+        case priceChangePercentage24HInCurrency =
+            "price_change_percentage_24h_in_currency"
         case sparklineIn7D = "sparkline_in_7d"
+    }
+
+    func toCoin() -> Coin {
+        Coin(
+            id: id, name: name, symbol: symbol, currentPrice: currentPrice,
+            rank: Int(marketCapRank ?? 0.0),
+            priceChangePercentage24H: priceChangePercentage24H ?? 0.0,
+            currentHoldings: 0.0)
     }
 }
 

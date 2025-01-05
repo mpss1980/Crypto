@@ -7,8 +7,12 @@
 import SwiftUI
 
 struct HomeView: View {
-    @EnvironmentObject private var viewModel: HomeViewModel
+    @ObservedObject private var viewModel: HomeViewModel
     @State private var showPortfolio = false
+    
+    init(viewModel: HomeViewModel) {
+        self.viewModel = viewModel
+    }
 
     var body: some View {
         ZStack {
@@ -29,6 +33,8 @@ struct HomeView: View {
 
                 Spacer(minLength: 0)
             }
+        }.onAppear {
+            viewModel.onAppear()
         }
     }
 }
@@ -36,10 +42,9 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            HomeView()
+            HomeViewFactory.create()
                 .navigationBarHidden(true)
         }
-        .environmentObject(dev.homeViewModel)
     }
 }
 

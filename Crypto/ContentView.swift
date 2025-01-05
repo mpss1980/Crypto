@@ -8,17 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    let homeView: HomeView
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        homeView
     }
-}
-
-#Preview {
-    ContentView()
 }
