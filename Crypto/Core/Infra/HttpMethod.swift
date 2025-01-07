@@ -8,3 +8,12 @@ enum HttpMethod {
     case get
     case post
 }
+
+extension HttpMethod: CustomStringConvertible {
+    var description: String {
+        switch self {
+        case .get: return "GET"
+        case .post: return "POST"
+        }
+    }
+}

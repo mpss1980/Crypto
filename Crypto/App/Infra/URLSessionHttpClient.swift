@@ -19,13 +19,13 @@ class URLSessionHttpClient: HttpClient {
     }
 
     func makeRequest(endpoint: Endpoint, baseUrl: String) async -> Result<Data, HttpClientError> {
-        guard let url = requestMaker.url(endpoint: endpoint, baseUrl: baseUrl)
+        guard let request = requestMaker.url(endpoint: endpoint, baseUrl: baseUrl)
         else {
             return .failure(.invalidUrl)
         }
 
         do {
-            let result = try await session.data(from: url)
+            let result = try await session.data(for: request)
             
             guard let response = result.1 as? HTTPURLResponse else {
                 return .failure(.invalidResponse)

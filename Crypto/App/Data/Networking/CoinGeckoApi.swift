@@ -10,15 +10,16 @@ class CoinGeckoApi: CryptoApi {
     
     private let httpClient: HttpClient
     
-    private let baseUrl: String = "https://api.coingecko.com/api/v3"
+    private let baseUrl: String = "https://api.coingecko.com/api/v3/"
     
     init(httpClient: HttpClient) {
         self.httpClient = httpClient
     }
     
+       
     func getCoinList() async -> Result<[CoinDto], HttpClientError> {
         let queryParameters: [String : Any] = [
-            "vs_currency": "usd",
+            "vs_currency": "brl",
             "order": "market_cap_desc",
             "per_page": 200,
             "sparkline": true,

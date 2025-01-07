@@ -22,10 +22,10 @@ extension Double {
         if (maximumFractionDigits != nil) {
             var formatter = currencyFormatter.copy() as! NumberFormatter
             formatter.maximumFractionDigits = maximumFractionDigits!
-            return formatter.string(from: NSNumber(value: self)) ?? "0.00"
+            return formatter.string(from: NSNumber(value: self)) ?? "0,00"
         }
         
-        return currencyFormatter.string(from: NSNumber(value: self)) ?? "0.00"
+        return currencyFormatter.string(from: NSNumber(value: self)) ?? "0,00"
     }
 
     func asNumberString() -> String {
