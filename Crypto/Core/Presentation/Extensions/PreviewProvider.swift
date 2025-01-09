@@ -24,4 +24,11 @@ class DeveloperPreview {
         priceChangePercentage24H: 6.879440,
         currentHoldings: 1.5
     )
+    
+    let statistics = [
+        Statistics(id: "123", title: "Title", value: "1.23", percentageChange: -70.0),
+        Statistics(id: "124", title: "Title2", value: "1.432", percentageChange: 30.0),
+        Statistics(id: "125", title: "Title3", value: "1.3433", percentageChange: -43.0),
+        Statistics(id: "126", title: "Title4", value: "1.23", percentageChange: 0),
+    ]
 }
